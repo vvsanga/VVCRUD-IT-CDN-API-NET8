@@ -6,9 +6,7 @@ This is a .NET RESTful API project that demonstrates the basic CRUD oprionts usi
 - PUT
 - DELETE
   
-to register/delete/update/get an user 
-
-the use of various C# concepts along with Entity Framework Core, AutoMapper, SQL Server, Caching Strategy, Pagination, and Error Handling.
+to register/delete/update/get an user.
 
 ## Technology
 
