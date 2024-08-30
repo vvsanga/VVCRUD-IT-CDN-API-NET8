@@ -12,5 +12,3 @@ obj/
 # ASP.NET Core
 .PublishProfiles/
 
-# Migrations
-Migrations/
