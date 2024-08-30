@@ -1,0 +1,16 @@
+.gitattributes
+.vs/
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.sln
+*.user
+
+# ASP.NET Core
+.PublishProfiles/
+
+# Migrations
+Migrations/
