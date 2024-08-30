@@ -1,10 +1,10 @@
 # VV CRUD IT CDN 
 
 This is a .NET RESTful API project that demonstrates the basic CRUD oprionts using the HTTP verbs such as:
-- ** @GET
-- ** @POST
-- ** @PUT,
-- - **@DELETE
+- GET
+- POST
+- PUT
+- DELETE
 to register/delete/update/get an user 
 
 the use of various C# concepts along with Entity Framework Core, AutoMapper, SQL Server, Caching Strategy, Pagination, and Error Handling.
