@@ -25,8 +25,6 @@ builder.Services.AddControllers(options =>
 });
 //Add Response Caching Service
 builder.Services.AddResponseCaching();
-//// Add logging
-//builder.Services.AddLogging();
 //
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -41,7 +39,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowCORSPolicy", policy =>
     {
-        policy.AllowAnyOrigin()  //WithOrigins("https://www.allowedorigin.com")
+        policy.WithOrigins("https://localhost:7265", "https://www.vvcruditcdnapi.somee.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -52,31 +50,27 @@ builder.Services.AddScoped<IProfessionalService, ProfessionalService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
 
 //if (app.Environment.IsDevelopment())
 //{
-//    app.UseDeveloperExceptionPage();
-//}
-//else
-//{
-//    // Add middleware for global Exception handelling
-//    app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
-// Add middleware for global Exception handelling
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseHttpsRedirection();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    // Add middleware for global Exception handelling
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
+}
 
 // Add middleware for request logging
 app.UseMiddleware<RequestLoggingMiddleware>();
-
-//app.UseAuthorization();
 
 app.UseCors("AllowCORSPolicy");
 

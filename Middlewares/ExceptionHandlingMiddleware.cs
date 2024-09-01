@@ -22,6 +22,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Middlewares
             catch (Exception exception)
             {
                 Console.WriteLine($"Exception occurred: {exception.Message}");
+                Console.WriteLine(exception);
 
                 var problemDetails = new ProblemDetails
                 {

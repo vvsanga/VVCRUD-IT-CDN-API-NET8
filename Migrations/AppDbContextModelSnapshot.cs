@@ -42,10 +42,6 @@ namespace VVCRUD_IT_CDN_API_NET8.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("Skillset")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(10)");
@@ -53,6 +49,45 @@ namespace VVCRUD_IT_CDN_API_NET8.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Professional");
+                });
+
+            modelBuilder.Entity("VVCRUD_IT_CDN_API_NET8.Models.Entities.Skillset", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDateTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<Guid>("ProfessionalId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfessionalId");
+
+                    b.ToTable("Skillset");
+                });
+
+            modelBuilder.Entity("VVCRUD_IT_CDN_API_NET8.Models.Entities.Skillset", b =>
+                {
+                    b.HasOne("VVCRUD_IT_CDN_API_NET8.Models.Entities.Professional", "Professional")
+                        .WithMany("Skillset")
+                        .HasForeignKey("ProfessionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Professional");
+                });
+
+            modelBuilder.Entity("VVCRUD_IT_CDN_API_NET8.Models.Entities.Professional", b =>
+                {
+                    b.Navigation("Skillset");
                 });
 #pragma warning restore 612, 618
         }

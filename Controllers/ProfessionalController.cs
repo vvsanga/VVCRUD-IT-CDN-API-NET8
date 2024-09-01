@@ -2,8 +2,6 @@
 using VVCRUD_IT_CDN_API_NET8.Models.Dtos.ProfessionalDtos;
 using VVCRUD_IT_CDN_API_NET8.Services.Interface;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace VVCRUD_IT_CDN_API_NET8.Controllers
 {
     [Route("api/[controller]")]
@@ -19,7 +17,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
 
         [HttpGet]
         [ResponseCache(CacheProfileName = "CacheForSeconds10")]
-        public async Task<ActionResult<IEnumerable<ProfessionalViewDto>>> GetAllAsync([FromQuery] int pageNo = 1, [FromQuery] int pageSize = 2)
+        public async Task<ActionResult<IEnumerable<ProfessionalView>>> GetAllAsync([FromQuery] int pageNo = 1, [FromQuery] int pageSize = 5)
         {
             // Validate page number and page size
             if (pageNo <= 0 || pageSize <= 0)
@@ -40,8 +38,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
 
         [HttpGet]
         [Route("{id:guid}")]
-        [ResponseCache(CacheProfileName = "CacheForSeconds10")]
-        public async Task<ActionResult<IEnumerable<ProfessionalViewDto>>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<IEnumerable<ProfessionalView>>> GetByIdAsync(Guid id)
         {
             var ProfessionalViewDto = await _professionalService.GetByIdAsync(id);
             if (ProfessionalViewDto == null)
@@ -53,7 +50,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ProfessionalViewDto>> Post(ProfessionalCreateDto professionalCreateDto)
+        public async Task<ActionResult<ProfessionalView>> Post(ProfessionalCreate professionalCreateDto)
         {
             if (!ModelState.IsValid)
             {
@@ -61,6 +58,12 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
             }
             try
             {
+                // Ensure that the new list of skills is not empty
+                if (!professionalCreateDto.Skillset.Any())
+                {
+                    return BadRequest(new { message = $"A Professional must have at least one Skillset." });
+                }
+
                 var professionalViewDto = await _professionalService.CreateAsync(professionalCreateDto);
                 return Ok(professionalViewDto);
 
@@ -74,7 +77,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<ActionResult<ProfessionalViewDto>> Put(Guid id, ProfessionalUpdateDto updateProfessionalDto)
+        public async Task<ActionResult<ProfessionalView>> Put(Guid id, ProfessionalUpdate updateProfessionalDto)
         {
             if (!ModelState.IsValid)
             {
@@ -82,6 +85,12 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
             }
             try
             {
+                // Ensure that the new list of skills is not empty
+                if (!updateProfessionalDto.Skillset.Any())
+                {
+                    return BadRequest(new { message = $"A Professional must have at least one Skillset." });
+                }
+
                 var professionalViewDto = await _professionalService.UpdateAsync(id, updateProfessionalDto);
                 if (professionalViewDto == null)
                 {
@@ -105,7 +114,7 @@ namespace VVCRUD_IT_CDN_API_NET8.Controllers
             {
                 return NotFound(new { message = $"No Professional found with Id {id}." });
             }
-            return Ok(new { message = $"Record Successfully Removed." });
+            return Ok(new { message = $"Professionals Removed Successfully." });
         }
     }
 }

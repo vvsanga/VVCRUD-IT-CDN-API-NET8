@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VVCRUD_IT_CDN_API_NET8.Models.Dtos.ProfessionalDtos;
+using VVCRUD_IT_CDN_API_NET8.Models.Dtos.SkillsetDtos;
 using VVCRUD_IT_CDN_API_NET8.Models.Entities;
 
 namespace VVCRUD_IT_CDN_API_NET8.MappingProfiles
@@ -8,7 +9,8 @@ namespace VVCRUD_IT_CDN_API_NET8.MappingProfiles
     {
         public AutoMapperProfile()
         {
-            CreateMap<Professional, ProfessionalViewDto>();
+            CreateMap<Professional, ProfessionalView>();
+            CreateMap<Skillset, SkillsetView>();
         }
     }
 }

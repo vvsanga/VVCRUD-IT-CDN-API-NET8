@@ -15,10 +15,9 @@ namespace VVCRUD_IT_CDN_API_NET8.Models.Entities
         [Column(TypeName = "nvarchar(15)")]
         public required string PhoneNumber { get; set; }
 
-        [Column(TypeName = "nvarchar(500)")]
-        public required string Skillset { get; set; }
-
         [Column(TypeName = "nvarchar(100)")]
         public string? Hobby { get; set; }
+
+        public ICollection<Skillset> Skillset { get; set; } = new List<Skillset>();
     }
 }
