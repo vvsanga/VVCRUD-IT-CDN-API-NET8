@@ -39,7 +39,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowCORSPolicy", policy =>
     {
-        policy.WithOrigins("https://localhost:7265", "https://www.vvcruditcdnapi.somee.com")
+        policy.WithOrigins("http://localhost:4200", "https://vvcrud-it-cdn-ui-ang16.onrender.com")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
